@@ -15,8 +15,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        recyclerView_main.layoutManager = LinearLayoutManager(this)
-        recyclerView_main.adapter = MainAdapter()
 
 
 

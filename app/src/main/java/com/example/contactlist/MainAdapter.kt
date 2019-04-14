@@ -1,13 +1,24 @@
 package com.example.contactlist
 
+import android.content.Context
 import android.content.Intent
+import android.net.sip.SipAudioCall
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.layout_raw.view.*
 
-class MainAdapter:RecyclerView.Adapter<CustomViewHolder>() {
+class MainAdapter(val items:List<UserInfo>, val context: Context):RecyclerView.Adapter<CustomViewHolder>() {
+
+    private lateinit var listener: Listener
+    interface Listener {
+        fun onClick(position: Int)
+    }
+
+    fun setListener(listener: Listener) {
+        this.listener = listener
+    }
 
     val repo = ContactListRepository
     val list = repo.initList()
@@ -27,7 +38,10 @@ class MainAdapter:RecyclerView.Adapter<CustomViewHolder>() {
     holder.view.name_view.text = user.name
         holder.view.number_view.text=user.phoneNumber
         holder.view.Photo.setImageResource(user.imageId)
-        holder.ClickItem(user.id)
+//        holder.ClickItem(user.id)
+        holder.view.setOnClickListener{
+            listener.onClick(position)
+        }
     }
 
 
@@ -38,9 +52,10 @@ class CustomViewHolder(val view:View): RecyclerView.ViewHolder(view){
 
 fun ClickItem ( id:String){
     view.setOnClickListener{
-        val inten = Intent(view.context,DetailActivity::class.java)
-        inten.putExtra("id", id)
-        view.context.startActivity(inten)
+//        val intent = Intent(view.context,DetailActivity::class.java)
+//        intent.putExtra("id", id)
+//        view.context.startActivity(intent)
+
     }
 }
 
